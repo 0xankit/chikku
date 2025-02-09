@@ -1,28 +1,56 @@
 version: 1
 validation: sovereign
-accounts: 
-- name: alice
-  coins:
-  - 20000token
-  - 200000000stake
-- name: bob
-  coins:
-  - 10000token
-  - 100000000stake
+accounts:
+  - name: alice
+    coins:
+      - 200000000stake
+  - name: bob
+    coins:
+      - 100000000stake
+  # 10 operators accounts with 10000000egv each
+  - name: operator1
+    coins:
+      - 10000000egv
+  - name: operator2
+    coins:
+      - 10000000egv
+  - name: operator3
+    coins:
+      - 10000000egv
+  - name: operator4
+    coins:
+      - 10000000egv
+  - name: operator5
+    coins:
+      - 10000000egv
+  - name: operator6
+    coins:
+      - 10000000egv
+  - name: operator7
+    coins:
+      - 10000000egv
+  - name: operator8
+    coins:
+      - 10000000egv
+  - name: operator9
+    coins:
+      - 10000000egv
+  - name: operator10
+    coins:
+      - 10000000egv
 client:
   openapi:
     path: docs/static/openapi.yml
 faucet:
   name: bob
   coins:
-  - 5token
-  - 100000stake
+    - 100000stake
 validators:
-- name: alice
-  bonded: 100000000stake
-- name: validator1
-  bonded: 100000000stake
-- name: validator2
-  bonded: 200000000stake
-- name: validator3
-  bonded: 300000000stake
+  - name: alice
+    bonded: 100000000stake
+  - name: validator1
+    bonded: 100000000stake
+  - name: validator2
+    bonded: 200000000stake
+  - name: validator3
+    bonded: 300000000stake
