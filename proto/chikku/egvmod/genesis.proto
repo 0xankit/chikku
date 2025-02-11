@@ -1,0 +1,17 @@
+syntax = "proto3";
+package chikku.egvmod;
+
+import "amino/amino.proto";
+import "gogoproto/gogo.proto";
+import "chikku/egvmod/params.proto";
+
+option go_package = "chikku/x/egvmod/types";
+
+// GenesisState defines the egvmod module's genesis state.
+message GenesisState {
+  // params defines all the parameters of the module.
+  Params params = 1 [
+    (gogoproto.nullable) = false,
+    (amino.dont_omitempty) = true
+  ];
+}
