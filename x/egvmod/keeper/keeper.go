@@ -60,3 +60,15 @@ func (k Keeper) Logger() log.Logger {
 	return k.logger.With("module", fmt.Sprintf("x/%s", types.ModuleName))
 }
 
+// Mint coins & send to an address.
+func (k Keeper) MintCoins(ctx sdk.Context, toAddr sdk.AccAddress, amt sdk.Coins) error {
+	if err := k.bankKeeper.MintCoins(ctx, types.ModuleName, amt); err != nil {
+		return err
+	}
+
+	if err := k.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, toAddr, amt); err != nil {
+		return err
+	}
+
+	return nil
+}
