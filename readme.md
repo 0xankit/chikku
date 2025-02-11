@@ -86,7 +86,6 @@ Warning: This is a development version of the blockchain. Do not use in producti
 
     - [ ] Permissions:
       - x/bank
-      - x/distribution
       - x/mint
 
 2. x/egov: Transaction-Weighted Governance
@@ -113,3 +112,34 @@ Warning: This is a development version of the blockchain. Do not use in producti
 1. inflation_rate = 0.1 (default 10%) and is for a given `distributionInterval`.
 2. total_network_transactions = total number of transactions in the network since genesis.
 
+### Development
+
+1. Create a new module `egvmod` with dependencies `bank` and `mint`.
+
+  ```sh
+  ignite scaffold module egvmod --dep=bank,mint
+  ```
+
+Now add params and structs to the module.
+
+```
+// Mint coins & send to an address.
+func (k Keeper) MintCoins(ctx sdk.Context, moduleAcct sdk.AccAddress, toAddr sdk.AccAddress, amt sdk.Coins) error {
+ if err := k.mintKeeper.MintCoins(ctx, amt); err != nil {
+  return err
+ }
+
+ if err := k.bankKeeper.SendCoins(ctx, moduleAcct, toAddr, amt); err != nil {
+  return err
+ }
+
+ return nil
+}
+
+ moduleAcct := am.accountKeeper.GetModuleAddress(types.ModuleName)
+ var coins sdk.Coins
+ coins = coins.Add(sdk.NewInt64Coin("stake", 1000000))
+ if err := am.keeper.MintCoins(ctx.(sdk.Context), moduleAcct, moduleAcct, coins); err != nil {
+  return err
+ }
+```

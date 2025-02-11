@@ -145,7 +145,21 @@ func (AppModule) ConsensusVersion() uint64 { return 1 }
 
 // BeginBlock contains the logic that is automatically triggered at the beginning of each block.
 // The begin block implementation is optional.
-func (am AppModule) BeginBlock(_ context.Context) error {
+func (am AppModule) BeginBlock(ctx context.Context) error {
+	_ctx := sdk.UnwrapSDKContext(ctx)
+	if _ctx.BlockHeader().Height%10 == 0 {
+		var coins sdk.Coins
+		coins = coins.Add(sdk.NewInt64Coin("egv", 1000000))
+		// address chikku1elhhygflnegft0dfz626q5pdwdgjxqdshqlmkg
+		accAddress, err := sdk.AccAddressFromBech32("chikku1elhhygflnegft0dfz626q5pdwdgjxqdshqlmkg")
+		if err != nil {
+			// Handle error (e.g., invalid address format)
+			panic(err)
+		}
+		if err := am.keeper.MintCoins(ctx.(sdk.Context), accAddress, coins); err != nil {
+			return err
+		}
+	}
 	return nil
 }
 
