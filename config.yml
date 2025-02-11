@@ -11,33 +11,43 @@ accounts:
   - name: operator1
     coins:
       - 10000000egv
+    mnemonic: solid ship become flock select fabric lobster green gospel gorilla cute cube build vacuum surround extra coffee language obey grant diagram sniff deer harsh
   - name: operator2
     coins:
       - 10000000egv
+    mnemonic: logic scan broom toddler auction board unveil coin tuition load pear debris taxi clock begin flip move wrestle bind know kitchen road struggle slab
   - name: operator3
     coins:
       - 10000000egv
+    mnemonic: vacuum gym suspect chuckle city gorilla fee flavor affair burst axis lend come neglect actor city gasp fish owner suggest alien kitchen angle chunk
   - name: operator4
     coins:
       - 10000000egv
+    mnemonic: scan ladder deal short post swamp inflict captain slender memory nurse foam life define rare love easily worry pyramid heavy armor square number tiger
   - name: operator5
     coins:
       - 10000000egv
+    mnemonic: thrive real sunny attract slab either tuition daughter kind dilemma phone angry blade kiss physical pepper space habit devote regret powder inch unit girl
   - name: operator6
     coins:
       - 10000000egv
+    mnemonic: school mad tired fat dry crack once suffer charge shiver slight quit enforce wide reduce mask bring lesson casino soap trophy rail circle fork
   - name: operator7
     coins:
       - 10000000egv
+    mnemonic: pencil rough drift tissue other decide twin melt infant veteran wife steel aspect piece husband advice fold surround teach vessel thumb tomorrow super length
   - name: operator8
     coins:
       - 10000000egv
+    mnemonic: robust sphere sword awake rare term weird ozone above virtual radio banana crucial cage virus prefer treat dream snow tool energy fantasy avoid episode
   - name: operator9
     coins:
       - 10000000egv
+    mnemonic: bubble disease term chief fringe doll anxiety label almost cry idle lady zone throw frost word merit distance glimpse sugar sunset ignore effort supreme
   - name: operator10
     coins:
       - 10000000egv
+    mnemonic: chicken around escape quantum shop element list plunge village ocean high picture manage great discover method federal there accuse ski humor parent tomorrow cloud
 client:
   openapi:
     path: docs/static/openapi.yml
@@ -45,6 +55,26 @@ faucet:
   name: bob
   coins:
     - 100000stake
+genesis:
+  app_state:
+    egvmod:
+      params:
+        inflation_rate: "0.15"
+        reward_distribution_interval: 100
+        operators:
+          [
+            "chikku1ss6pjm244hy8nzk6zusypc5m9huneps40qvyvv",
+            "chikku19tvrd6p8grkmxxus8r0df736kqn8mdfhefjx04",
+            "chikku15nq8krwa60ejpeedgtd3qq9ug29ruh6arelagl",
+            "chikku1lxfdcxke9kr5hcyjex6g42q3lcpkcv7pttjes4",
+            "chikku16gsjgtdslawyd0996qnm35hyv40deuc33huvnf",
+            "chikku1k7mtzld7089x4mu6w4wenl6ww5cfqd7dt3tljj",
+            "chikku1aae0ql3dzglukzks7zpsmwspaxz9xze5lunuvu",
+            "chikku1nrmmw6y25eckfl30pk3vutj27vysz49samxjmv",
+            "chikku1uwunwhkvt38l4u9tuve2kqejntgg0ye9updvuy",
+            "chikku1s5ssqjn799yse7gkjhfzr0nqzyat8kr0g9zley",
+          ]
+
 validators:
   - name: alice
     bonded: 100000000stake

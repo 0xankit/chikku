@@ -14,13 +14,65 @@ import (
 	sync "sync"
 )
 
+var _ protoreflect.List = (*_Params_3_list)(nil)
+
+type _Params_3_list struct {
+	list *[]string
+}
+
+func (x *_Params_3_list) Len() int {
+	if x.list == nil {
+		return 0
+	}
+	return len(*x.list)
+}
+
+func (x *_Params_3_list) Get(i int) protoreflect.Value {
+	return protoreflect.ValueOfString((*x.list)[i])
+}
+
+func (x *_Params_3_list) Set(i int, value protoreflect.Value) {
+	valueUnwrapped := value.String()
+	concreteValue := valueUnwrapped
+	(*x.list)[i] = concreteValue
+}
+
+func (x *_Params_3_list) Append(value protoreflect.Value) {
+	valueUnwrapped := value.String()
+	concreteValue := valueUnwrapped
+	*x.list = append(*x.list, concreteValue)
+}
+
+func (x *_Params_3_list) AppendMutable() protoreflect.Value {
+	panic(fmt.Errorf("AppendMutable can not be called on message Params at list field Operators as it is not of Message kind"))
+}
+
+func (x *_Params_3_list) Truncate(n int) {
+	*x.list = (*x.list)[:n]
+}
+
+func (x *_Params_3_list) NewElement() protoreflect.Value {
+	v := ""
+	return protoreflect.ValueOfString(v)
+}
+
+func (x *_Params_3_list) IsValid() bool {
+	return x.list != nil
+}
+
 var (
-	md_Params protoreflect.MessageDescriptor
+	md_Params                              protoreflect.MessageDescriptor
+	fd_Params_inflation_rate               protoreflect.FieldDescriptor
+	fd_Params_reward_distribution_interval protoreflect.FieldDescriptor
+	fd_Params_operators                    protoreflect.FieldDescriptor
 )
 
 func init() {
 	file_chikku_egvmod_params_proto_init()
 	md_Params = File_chikku_egvmod_params_proto.Messages().ByName("Params")
+	fd_Params_inflation_rate = md_Params.Fields().ByName("inflation_rate")
+	fd_Params_reward_distribution_interval = md_Params.Fields().ByName("reward_distribution_interval")
+	fd_Params_operators = md_Params.Fields().ByName("operators")
 }
 
 var _ protoreflect.Message = (*fastReflection_Params)(nil)
@@ -88,6 +140,24 @@ func (x *fastReflection_Params) Interface() protoreflect.ProtoMessage {
 // While iterating, mutating operations may only be performed
 // on the current field descriptor.
 func (x *fastReflection_Params) Range(f func(protoreflect.FieldDescriptor, protoreflect.Value) bool) {
+	if x.InflationRate != "" {
+		value := protoreflect.ValueOfString(x.InflationRate)
+		if !f(fd_Params_inflation_rate, value) {
+			return
+		}
+	}
+	if x.RewardDistributionInterval != int32(0) {
+		value := protoreflect.ValueOfInt32(x.RewardDistributionInterval)
+		if !f(fd_Params_reward_distribution_interval, value) {
+			return
+		}
+	}
+	if len(x.Operators) != 0 {
+		value := protoreflect.ValueOfList(&_Params_3_list{list: &x.Operators})
+		if !f(fd_Params_operators, value) {
+			return
+		}
+	}
 }
 
 // Has reports whether a field is populated.
@@ -103,6 +173,12 @@ func (x *fastReflection_Params) Range(f func(protoreflect.FieldDescriptor, proto
 // a repeated field is populated if it is non-empty.
 func (x *fastReflection_Params) Has(fd protoreflect.FieldDescriptor) bool {
 	switch fd.FullName() {
+	case "chikku.egvmod.Params.inflation_rate":
+		return x.InflationRate != ""
+	case "chikku.egvmod.Params.reward_distribution_interval":
+		return x.RewardDistributionInterval != int32(0)
+	case "chikku.egvmod.Params.operators":
+		return len(x.Operators) != 0
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: chikku.egvmod.Params"))
@@ -119,6 +195,12 @@ func (x *fastReflection_Params) Has(fd protoreflect.FieldDescriptor) bool {
 // Clear is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_Params) Clear(fd protoreflect.FieldDescriptor) {
 	switch fd.FullName() {
+	case "chikku.egvmod.Params.inflation_rate":
+		x.InflationRate = ""
+	case "chikku.egvmod.Params.reward_distribution_interval":
+		x.RewardDistributionInterval = int32(0)
+	case "chikku.egvmod.Params.operators":
+		x.Operators = nil
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: chikku.egvmod.Params"))
@@ -135,6 +217,18 @@ func (x *fastReflection_Params) Clear(fd protoreflect.FieldDescriptor) {
 // of the value; to obtain a mutable reference, use Mutable.
 func (x *fastReflection_Params) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
 	switch descriptor.FullName() {
+	case "chikku.egvmod.Params.inflation_rate":
+		value := x.InflationRate
+		return protoreflect.ValueOfString(value)
+	case "chikku.egvmod.Params.reward_distribution_interval":
+		value := x.RewardDistributionInterval
+		return protoreflect.ValueOfInt32(value)
+	case "chikku.egvmod.Params.operators":
+		if len(x.Operators) == 0 {
+			return protoreflect.ValueOfList(&_Params_3_list{})
+		}
+		listValue := &_Params_3_list{list: &x.Operators}
+		return protoreflect.ValueOfList(listValue)
 	default:
 		if descriptor.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: chikku.egvmod.Params"))
@@ -155,6 +249,14 @@ func (x *fastReflection_Params) Get(descriptor protoreflect.FieldDescriptor) pro
 // Set is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_Params) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
 	switch fd.FullName() {
+	case "chikku.egvmod.Params.inflation_rate":
+		x.InflationRate = value.Interface().(string)
+	case "chikku.egvmod.Params.reward_distribution_interval":
+		x.RewardDistributionInterval = int32(value.Int())
+	case "chikku.egvmod.Params.operators":
+		lv := value.List()
+		clv := lv.(*_Params_3_list)
+		x.Operators = *clv.list
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: chikku.egvmod.Params"))
@@ -175,6 +277,16 @@ func (x *fastReflection_Params) Set(fd protoreflect.FieldDescriptor, value proto
 // Mutable is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_Params) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
+	case "chikku.egvmod.Params.operators":
+		if x.Operators == nil {
+			x.Operators = []string{}
+		}
+		value := &_Params_3_list{list: &x.Operators}
+		return protoreflect.ValueOfList(value)
+	case "chikku.egvmod.Params.inflation_rate":
+		panic(fmt.Errorf("field inflation_rate of message chikku.egvmod.Params is not mutable"))
+	case "chikku.egvmod.Params.reward_distribution_interval":
+		panic(fmt.Errorf("field reward_distribution_interval of message chikku.egvmod.Params is not mutable"))
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: chikku.egvmod.Params"))
@@ -188,6 +300,13 @@ func (x *fastReflection_Params) Mutable(fd protoreflect.FieldDescriptor) protore
 // For lists, maps, and messages, this returns a new, empty, mutable value.
 func (x *fastReflection_Params) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
+	case "chikku.egvmod.Params.inflation_rate":
+		return protoreflect.ValueOfString("")
+	case "chikku.egvmod.Params.reward_distribution_interval":
+		return protoreflect.ValueOfInt32(int32(0))
+	case "chikku.egvmod.Params.operators":
+		list := []string{}
+		return protoreflect.ValueOfList(&_Params_3_list{list: &list})
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: chikku.egvmod.Params"))
@@ -257,6 +376,19 @@ func (x *fastReflection_Params) ProtoMethods() *protoiface.Methods {
 		var n int
 		var l int
 		_ = l
+		l = len(x.InflationRate)
+		if l > 0 {
+			n += 1 + l + runtime.Sov(uint64(l))
+		}
+		if x.RewardDistributionInterval != 0 {
+			n += 1 + runtime.Sov(uint64(x.RewardDistributionInterval))
+		}
+		if len(x.Operators) > 0 {
+			for _, s := range x.Operators {
+				l = len(s)
+				n += 1 + l + runtime.Sov(uint64(l))
+			}
+		}
 		if x.unknownFields != nil {
 			n += len(x.unknownFields)
 		}
@@ -285,6 +417,27 @@ func (x *fastReflection_Params) ProtoMethods() *protoiface.Methods {
 		if x.unknownFields != nil {
 			i -= len(x.unknownFields)
 			copy(dAtA[i:], x.unknownFields)
+		}
+		if len(x.Operators) > 0 {
+			for iNdEx := len(x.Operators) - 1; iNdEx >= 0; iNdEx-- {
+				i -= len(x.Operators[iNdEx])
+				copy(dAtA[i:], x.Operators[iNdEx])
+				i = runtime.EncodeVarint(dAtA, i, uint64(len(x.Operators[iNdEx])))
+				i--
+				dAtA[i] = 0x1a
+			}
+		}
+		if x.RewardDistributionInterval != 0 {
+			i = runtime.EncodeVarint(dAtA, i, uint64(x.RewardDistributionInterval))
+			i--
+			dAtA[i] = 0x10
+		}
+		if len(x.InflationRate) > 0 {
+			i -= len(x.InflationRate)
+			copy(dAtA[i:], x.InflationRate)
+			i = runtime.EncodeVarint(dAtA, i, uint64(len(x.InflationRate)))
+			i--
+			dAtA[i] = 0xa
 		}
 		if input.Buf != nil {
 			input.Buf = append(input.Buf, dAtA...)
@@ -335,6 +488,89 @@ func (x *fastReflection_Params) ProtoMethods() *protoiface.Methods {
 				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: Params: illegal tag %d (wire type %d)", fieldNum, wire)
 			}
 			switch fieldNum {
+			case 1:
+				if wireType != 2 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field InflationRate", wireType)
+				}
+				var stringLen uint64
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					stringLen |= uint64(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				intStringLen := int(stringLen)
+				if intStringLen < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				postIndex := iNdEx + intStringLen
+				if postIndex < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				if postIndex > l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				x.InflationRate = string(dAtA[iNdEx:postIndex])
+				iNdEx = postIndex
+			case 2:
+				if wireType != 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field RewardDistributionInterval", wireType)
+				}
+				x.RewardDistributionInterval = 0
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					x.RewardDistributionInterval |= int32(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+			case 3:
+				if wireType != 2 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Operators", wireType)
+				}
+				var stringLen uint64
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					stringLen |= uint64(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				intStringLen := int(stringLen)
+				if intStringLen < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				postIndex := iNdEx + intStringLen
+				if postIndex < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				if postIndex > l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				x.Operators = append(x.Operators, string(dAtA[iNdEx:postIndex]))
+				iNdEx = postIndex
 			default:
 				iNdEx = preIndex
 				skippy, err := runtime.Skip(dAtA[iNdEx:])
@@ -388,6 +624,13 @@ type Params struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
+
+	// InflationRate is the annual inflation rate.
+	InflationRate string `protobuf:"bytes,1,opt,name=inflation_rate,json=inflationRate,proto3" json:"inflation_rate,omitempty"`
+	// RewardDistributionInterval is the interval at which rewards are distributed.
+	RewardDistributionInterval int32 `protobuf:"varint,2,opt,name=reward_distribution_interval,json=rewardDistributionInterval,proto3" json:"reward_distribution_interval,omitempty"`
+	// Operators is the list of operators.
+	Operators []string `protobuf:"bytes,3,rep,name=operators,proto3" json:"operators,omitempty"`
 }
 
 func (x *Params) Reset() {
@@ -410,6 +653,27 @@ func (*Params) Descriptor() ([]byte, []int) {
 	return file_chikku_egvmod_params_proto_rawDescGZIP(), []int{0}
 }
 
+func (x *Params) GetInflationRate() string {
+	if x != nil {
+		return x.InflationRate
+	}
+	return ""
+}
+
+func (x *Params) GetRewardDistributionInterval() int32 {
+	if x != nil {
+		return x.RewardDistributionInterval
+	}
+	return 0
+}
+
+func (x *Params) GetOperators() []string {
+	if x != nil {
+		return x.Operators
+	}
+	return nil
+}
+
 var File_chikku_egvmod_params_proto protoreflect.FileDescriptor
 
 var file_chikku_egvmod_params_proto_rawDesc = []byte{
@@ -418,19 +682,32 @@ var file_chikku_egvmod_params_proto_rawDesc = []byte{
 	0x69, 0x6b, 0x6b, 0x75, 0x2e, 0x65, 0x67, 0x76, 0x6d, 0x6f, 0x64, 0x1a, 0x11, 0x61, 0x6d, 0x69,
 	0x6e, 0x6f, 0x2f, 0x61, 0x6d, 0x69, 0x6e, 0x6f, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x14,
 	0x67, 0x6f, 0x67, 0x6f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2f, 0x67, 0x6f, 0x67, 0x6f, 0x2e, 0x70,
-	0x72, 0x6f, 0x74, 0x6f, 0x22, 0x29, 0x0a, 0x06, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x3a, 0x1f,
-	0xe8, 0xa0, 0x1f, 0x01, 0x8a, 0xe7, 0xb0, 0x2a, 0x16, 0x63, 0x68, 0x69, 0x6b, 0x6b, 0x75, 0x2f,
-	0x78, 0x2f, 0x65, 0x67, 0x76, 0x6d, 0x6f, 0x64, 0x2f, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x42,
-	0x8f, 0x01, 0x0a, 0x11, 0x63, 0x6f, 0x6d, 0x2e, 0x63, 0x68, 0x69, 0x6b, 0x6b, 0x75, 0x2e, 0x65,
-	0x67, 0x76, 0x6d, 0x6f, 0x64, 0x42, 0x0b, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x50, 0x72, 0x6f,
-	0x74, 0x6f, 0x50, 0x01, 0x5a, 0x18, 0x63, 0x68, 0x69, 0x6b, 0x6b, 0x75, 0x2f, 0x61, 0x70, 0x69,
-	0x2f, 0x63, 0x68, 0x69, 0x6b, 0x6b, 0x75, 0x2f, 0x65, 0x67, 0x76, 0x6d, 0x6f, 0x64, 0xa2, 0x02,
-	0x03, 0x43, 0x45, 0x58, 0xaa, 0x02, 0x0d, 0x43, 0x68, 0x69, 0x6b, 0x6b, 0x75, 0x2e, 0x45, 0x67,
-	0x76, 0x6d, 0x6f, 0x64, 0xca, 0x02, 0x0d, 0x43, 0x68, 0x69, 0x6b, 0x6b, 0x75, 0x5c, 0x45, 0x67,
-	0x76, 0x6d, 0x6f, 0x64, 0xe2, 0x02, 0x19, 0x43, 0x68, 0x69, 0x6b, 0x6b, 0x75, 0x5c, 0x45, 0x67,
-	0x76, 0x6d, 0x6f, 0x64, 0x5c, 0x47, 0x50, 0x42, 0x4d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61,
-	0xea, 0x02, 0x0e, 0x43, 0x68, 0x69, 0x6b, 0x6b, 0x75, 0x3a, 0x3a, 0x45, 0x67, 0x76, 0x6d, 0x6f,
-	0x64, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x72, 0x6f, 0x74, 0x6f, 0x22, 0xf2, 0x01, 0x0a, 0x06, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x12,
+	0x38, 0x0a, 0x0e, 0x69, 0x6e, 0x66, 0x6c, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x5f, 0x72, 0x61, 0x74,
+	0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x42, 0x11, 0xe2, 0xde, 0x1f, 0x0d, 0x49, 0x6e, 0x66,
+	0x6c, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x61, 0x74, 0x65, 0x52, 0x0d, 0x69, 0x6e, 0x66, 0x6c,
+	0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x61, 0x74, 0x65, 0x12, 0x60, 0x0a, 0x1c, 0x72, 0x65, 0x77,
+	0x61, 0x72, 0x64, 0x5f, 0x64, 0x69, 0x73, 0x74, 0x72, 0x69, 0x62, 0x75, 0x74, 0x69, 0x6f, 0x6e,
+	0x5f, 0x69, 0x6e, 0x74, 0x65, 0x72, 0x76, 0x61, 0x6c, 0x18, 0x02, 0x20, 0x01, 0x28, 0x05, 0x42,
+	0x1e, 0xe2, 0xde, 0x1f, 0x1a, 0x52, 0x65, 0x77, 0x61, 0x72, 0x64, 0x44, 0x69, 0x73, 0x74, 0x72,
+	0x69, 0x62, 0x75, 0x74, 0x69, 0x6f, 0x6e, 0x49, 0x6e, 0x74, 0x65, 0x72, 0x76, 0x61, 0x6c, 0x52,
+	0x1a, 0x72, 0x65, 0x77, 0x61, 0x72, 0x64, 0x44, 0x69, 0x73, 0x74, 0x72, 0x69, 0x62, 0x75, 0x74,
+	0x69, 0x6f, 0x6e, 0x49, 0x6e, 0x74, 0x65, 0x72, 0x76, 0x61, 0x6c, 0x12, 0x2b, 0x0a, 0x09, 0x6f,
+	0x70, 0x65, 0x72, 0x61, 0x74, 0x6f, 0x72, 0x73, 0x18, 0x03, 0x20, 0x03, 0x28, 0x09, 0x42, 0x0d,
+	0xe2, 0xde, 0x1f, 0x09, 0x4f, 0x70, 0x65, 0x72, 0x61, 0x74, 0x6f, 0x72, 0x73, 0x52, 0x09, 0x6f,
+	0x70, 0x65, 0x72, 0x61, 0x74, 0x6f, 0x72, 0x73, 0x3a, 0x1f, 0xe8, 0xa0, 0x1f, 0x01, 0x8a, 0xe7,
+	0xb0, 0x2a, 0x16, 0x63, 0x68, 0x69, 0x6b, 0x6b, 0x75, 0x2f, 0x78, 0x2f, 0x65, 0x67, 0x76, 0x6d,
+	0x6f, 0x64, 0x2f, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x42, 0x8f, 0x01, 0x0a, 0x11, 0x63, 0x6f,
+	0x6d, 0x2e, 0x63, 0x68, 0x69, 0x6b, 0x6b, 0x75, 0x2e, 0x65, 0x67, 0x76, 0x6d, 0x6f, 0x64, 0x42,
+	0x0b, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0x50, 0x01, 0x5a, 0x18,
+	0x63, 0x68, 0x69, 0x6b, 0x6b, 0x75, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x63, 0x68, 0x69, 0x6b, 0x6b,
+	0x75, 0x2f, 0x65, 0x67, 0x76, 0x6d, 0x6f, 0x64, 0xa2, 0x02, 0x03, 0x43, 0x45, 0x58, 0xaa, 0x02,
+	0x0d, 0x43, 0x68, 0x69, 0x6b, 0x6b, 0x75, 0x2e, 0x45, 0x67, 0x76, 0x6d, 0x6f, 0x64, 0xca, 0x02,
+	0x0d, 0x43, 0x68, 0x69, 0x6b, 0x6b, 0x75, 0x5c, 0x45, 0x67, 0x76, 0x6d, 0x6f, 0x64, 0xe2, 0x02,
+	0x19, 0x43, 0x68, 0x69, 0x6b, 0x6b, 0x75, 0x5c, 0x45, 0x67, 0x76, 0x6d, 0x6f, 0x64, 0x5c, 0x47,
+	0x50, 0x42, 0x4d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61, 0xea, 0x02, 0x0e, 0x43, 0x68, 0x69,
+	0x6b, 0x6b, 0x75, 0x3a, 0x3a, 0x45, 0x67, 0x76, 0x6d, 0x6f, 0x64, 0x62, 0x06, 0x70, 0x72, 0x6f,
+	0x74, 0x6f, 0x33,
 }
 
 var (

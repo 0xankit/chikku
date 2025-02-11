@@ -11,5 +11,12 @@ message Params {
   option (amino.name) = "chikku/x/egvmod/Params";
   option (gogoproto.equal) = true;
 
-  
+  // InflationRate is the annual inflation rate.
+  string inflation_rate = 1 [(gogoproto.customname) = "InflationRate"];
+
+  // RewardDistributionInterval is the interval at which rewards are distributed.
+  int32 reward_distribution_interval = 2 [(gogoproto.customname) = "RewardDistributionInterval"];
+
+  // Operators is the list of operators.
+  repeated string operators = 3 [(gogoproto.customname) = "Operators"];
 }

@@ -26,6 +26,12 @@ const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
 // Params defines the parameters for the module.
 type Params struct {
+	// InflationRate is the annual inflation rate.
+	InflationRate string `protobuf:"bytes,1,opt,name=inflation_rate,json=inflationRate,proto3" json:"inflation_rate,omitempty"`
+	// RewardDistributionInterval is the interval at which rewards are distributed.
+	RewardDistributionInterval int32 `protobuf:"varint,2,opt,name=reward_distribution_interval,json=rewardDistributionInterval,proto3" json:"reward_distribution_interval,omitempty"`
+	// Operators is the list of operators.
+	Operators []string `protobuf:"bytes,3,rep,name=operators,proto3" json:"operators,omitempty"`
 }
 
 func (m *Params) Reset()         { *m = Params{} }
@@ -61,6 +67,27 @@ func (m *Params) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_Params proto.InternalMessageInfo
 
+func (m *Params) GetInflationRate() string {
+	if m != nil {
+		return m.InflationRate
+	}
+	return ""
+}
+
+func (m *Params) GetRewardDistributionInterval() int32 {
+	if m != nil {
+		return m.RewardDistributionInterval
+	}
+	return 0
+}
+
+func (m *Params) GetOperators() []string {
+	if m != nil {
+		return m.Operators
+	}
+	return nil
+}
+
 func init() {
 	proto.RegisterType((*Params)(nil), "chikku.egvmod.Params")
 }
@@ -68,17 +95,25 @@ func init() {
 func init() { proto.RegisterFile("chikku/egvmod/params.proto", fileDescriptor_9e35c4bbef650a12) }
 
 var fileDescriptor_9e35c4bbef650a12 = []byte{
-	// 150 bytes of a gzipped FileDescriptorProto
+	// 281 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0x92, 0x4a, 0xce, 0xc8, 0xcc,
 	0xce, 0x2e, 0xd5, 0x4f, 0x4d, 0x2f, 0xcb, 0xcd, 0x4f, 0xd1, 0x2f, 0x48, 0x2c, 0x4a, 0xcc, 0x2d,
 	0xd6, 0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x17, 0xe2, 0x85, 0xc8, 0xe9, 0x41, 0xe4, 0xa4, 0x04, 0x13,
 	0x73, 0x33, 0xf3, 0xf2, 0xf5, 0xc1, 0x24, 0x44, 0x85, 0x94, 0x48, 0x7a, 0x7e, 0x7a, 0x3e, 0x98,
-	0xa9, 0x0f, 0x62, 0x41, 0x44, 0x95, 0x34, 0xb9, 0xd8, 0x02, 0xc0, 0xe6, 0x58, 0xc9, 0xbf, 0x58,
-	0x20, 0xcf, 0xd8, 0xf5, 0x7c, 0x83, 0x96, 0x18, 0xd4, 0x9a, 0x0a, 0x98, 0x45, 0x10, 0x05, 0x4e,
-	0xfa, 0x27, 0x1e, 0xc9, 0x31, 0x5e, 0x78, 0x24, 0xc7, 0xf8, 0xe0, 0x91, 0x1c, 0xe3, 0x84, 0xc7,
-	0x72, 0x0c, 0x17, 0x1e, 0xcb, 0x31, 0xdc, 0x78, 0x2c, 0xc7, 0x10, 0x25, 0x8a, 0xae, 0xa3, 0xa4,
-	0xb2, 0x20, 0xb5, 0x38, 0x89, 0x0d, 0x6c, 0x85, 0x31, 0x20, 0x00, 0x00, 0xff, 0xff, 0x83, 0x72,
-	0xb6, 0x49, 0xb8, 0x00, 0x00, 0x00,
+	0xa9, 0x0f, 0x62, 0x41, 0x44, 0x95, 0x3e, 0x31, 0x72, 0xb1, 0x05, 0x80, 0x0d, 0x12, 0xb2, 0xe0,
+	0xe2, 0xcb, 0xcc, 0x4b, 0xcb, 0x49, 0x2c, 0xc9, 0xcc, 0xcf, 0x8b, 0x2f, 0x4a, 0x2c, 0x49, 0x95,
+	0x60, 0x54, 0x60, 0xd4, 0xe0, 0x74, 0x12, 0x7c, 0x74, 0x4f, 0x9e, 0xd7, 0x13, 0x26, 0x13, 0x94,
+	0x58, 0x92, 0x1a, 0xc4, 0x9b, 0x89, 0xcc, 0x15, 0x4a, 0xe0, 0x92, 0x29, 0x4a, 0x2d, 0x4f, 0x2c,
+	0x4a, 0x89, 0x4f, 0xc9, 0x2c, 0x2e, 0x29, 0xca, 0x4c, 0x2a, 0x05, 0x9b, 0x91, 0x99, 0x57, 0x92,
+	0x5a, 0x54, 0x96, 0x98, 0x23, 0xc1, 0xa4, 0xc0, 0xa8, 0xc1, 0xea, 0x24, 0xf7, 0xe8, 0x9e, 0xbc,
+	0x54, 0x10, 0x58, 0x9d, 0x0b, 0x92, 0x32, 0x4f, 0xa8, 0xaa, 0x20, 0xa9, 0x22, 0x9c, 0x72, 0x42,
+	0xda, 0x5c, 0x9c, 0xf9, 0x05, 0xa9, 0x45, 0x89, 0x25, 0xf9, 0x45, 0xc5, 0x12, 0xcc, 0x0a, 0xcc,
+	0x1a, 0x9c, 0x4e, 0xbc, 0x8f, 0xee, 0xc9, 0x73, 0xfa, 0xc3, 0x04, 0x83, 0x10, 0xf2, 0x56, 0xf2,
+	0x2f, 0x16, 0xc8, 0x33, 0x76, 0x3d, 0xdf, 0xa0, 0x25, 0x06, 0x0d, 0xb0, 0x0a, 0x58, 0x90, 0x41,
+	0x7c, 0xea, 0xa4, 0x7f, 0xe2, 0x91, 0x1c, 0xe3, 0x85, 0x47, 0x72, 0x8c, 0x0f, 0x1e, 0xc9, 0x31,
+	0x4e, 0x78, 0x2c, 0xc7, 0x70, 0xe1, 0xb1, 0x1c, 0xc3, 0x8d, 0xc7, 0x72, 0x0c, 0x51, 0xa2, 0xe8,
+	0x3a, 0x4a, 0x2a, 0x0b, 0x52, 0x8b, 0x93, 0xd8, 0xc0, 0x81, 0x65, 0x0c, 0x08, 0x00, 0x00, 0xff,
+	0xff, 0xf1, 0xba, 0x6b, 0xc3, 0x82, 0x01, 0x00, 0x00,
 }
 
 func (this *Params) Equal(that interface{}) bool {
@@ -99,6 +134,20 @@ func (this *Params) Equal(that interface{}) bool {
 		return this == nil
 	} else if this == nil {
 		return false
+	}
+	if this.InflationRate != that1.InflationRate {
+		return false
+	}
+	if this.RewardDistributionInterval != that1.RewardDistributionInterval {
+		return false
+	}
+	if len(this.Operators) != len(that1.Operators) {
+		return false
+	}
+	for i := range this.Operators {
+		if this.Operators[i] != that1.Operators[i] {
+			return false
+		}
 	}
 	return true
 }
@@ -122,6 +171,27 @@ func (m *Params) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
+	if len(m.Operators) > 0 {
+		for iNdEx := len(m.Operators) - 1; iNdEx >= 0; iNdEx-- {
+			i -= len(m.Operators[iNdEx])
+			copy(dAtA[i:], m.Operators[iNdEx])
+			i = encodeVarintParams(dAtA, i, uint64(len(m.Operators[iNdEx])))
+			i--
+			dAtA[i] = 0x1a
+		}
+	}
+	if m.RewardDistributionInterval != 0 {
+		i = encodeVarintParams(dAtA, i, uint64(m.RewardDistributionInterval))
+		i--
+		dAtA[i] = 0x10
+	}
+	if len(m.InflationRate) > 0 {
+		i -= len(m.InflationRate)
+		copy(dAtA[i:], m.InflationRate)
+		i = encodeVarintParams(dAtA, i, uint64(len(m.InflationRate)))
+		i--
+		dAtA[i] = 0xa
+	}
 	return len(dAtA) - i, nil
 }
 
@@ -142,6 +212,19 @@ func (m *Params) Size() (n int) {
 	}
 	var l int
 	_ = l
+	l = len(m.InflationRate)
+	if l > 0 {
+		n += 1 + l + sovParams(uint64(l))
+	}
+	if m.RewardDistributionInterval != 0 {
+		n += 1 + sovParams(uint64(m.RewardDistributionInterval))
+	}
+	if len(m.Operators) > 0 {
+		for _, s := range m.Operators {
+			l = len(s)
+			n += 1 + l + sovParams(uint64(l))
+		}
+	}
 	return n
 }
 
@@ -180,6 +263,89 @@ func (m *Params) Unmarshal(dAtA []byte) error {
 			return fmt.Errorf("proto: Params: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field InflationRate", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowParams
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthParams
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthParams
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.InflationRate = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field RewardDistributionInterval", wireType)
+			}
+			m.RewardDistributionInterval = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowParams
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.RewardDistributionInterval |= int32(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Operators", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowParams
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthParams
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthParams
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Operators = append(m.Operators, string(dAtA[iNdEx:postIndex]))
+			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
 			skippy, err := skipParams(dAtA[iNdEx:])
