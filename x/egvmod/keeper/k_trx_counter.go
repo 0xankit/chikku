@@ -31,6 +31,10 @@ func (k Keeper) SetTrxCount(ctx sdk.Context, operatorsTrxsCount types.OperatorsT
 
 	// set cumulative transaction count
 	k.setCumulativeTrxCount(ctx, operatorsTrxsCount)
+
+	// **Clear temporary transaction count after persistence**
+	tempStore := prefix.NewStore(storeAdapter, types.KeyPrefix(types.MemTrxCounterKeyPrefix))
+	tempStore.Delete(types.MemTrxCounterKey(operatorsTrxsCount.BlockHeight))
 }
 
 // setCumulativeTrxCounter sets the cumulative transaction count
@@ -150,19 +154,23 @@ func (k Keeper) IncrementOperatorTrxCount(ctx sdk.Context, operator string) erro
 		if _operator == operator {
 			// Increment the transaction count for the operator if it exists
 			// Otherwise, add a new operator with a transaction count of 1
-			for _, operatorTrxCounter := range operatorsTrxsCount.OperatorTrxCounters {
-				if operatorTrxCounter.Operator == operator {
-					operatorTrxCounter.TrxCount++
+			found := false
+			for _, counter := range operatorsTrxsCount.OperatorTrxCounters {
+				if counter.Operator == operator {
+					counter.TrxCount++
 					operatorsTrxsCount.TrxCount++
+					found = true
 					break
 				}
 			}
-			operatorsTrxsCount.OperatorTrxCounters = append(operatorsTrxsCount.OperatorTrxCounters, &types.OperatorTrxCounter{
-				Operator: operator,
-				TrxCount: 1,
-			})
-			operatorsTrxsCount.TrxCount++
-			break
+			if !found {
+				operatorsTrxsCount.OperatorTrxCounters = append(operatorsTrxsCount.OperatorTrxCounters, &types.OperatorTrxCounter{
+					Operator: operator,
+					TrxCount: 1,
+				})
+				operatorsTrxsCount.TrxCount++
+				break
+			}
 		}
 	}
 
