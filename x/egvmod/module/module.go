@@ -147,41 +147,6 @@ func (AppModule) ConsensusVersion() uint64 { return 1 }
 // BeginBlock contains the logic that is automatically triggered at the beginning of each block.
 // The begin block implementation is optional.
 func (am AppModule) BeginBlock(ctx context.Context) error {
-	// _ctx := sdk.UnwrapSDKContext(ctx)
-	// operatorTrxCount := []*types.OperatorTrxCounter{
-	// 	{
-	// 		Operator: "chikku1elhhygflnegft0dfz626q5pdwdgjxqdshqlmkg",
-	// 		TrxCount: 1,
-	// 	},
-	// 	{
-	// 		Operator: "chikku1jh5nyew36hp3gnu2elthv8lt579wtqv6ynxl6d",
-	// 		TrxCount: 1,
-	// 	},
-	// }
-	// am.keeper.SetTrxCount(_ctx, types.OperatorsTrxsCount{
-	// 	BlockHeight:         _ctx.BlockHeight(),
-	// 	OperatorTrxCounters: operatorTrxCount,
-	// })
-
-	// am.keeper.Logger().Error("BeginBlock SetTrxCount", "BlockHeight", _ctx.BlockHeight())
-
-	// cumilativeTrxs := am.keeper.GetCumulativeTrxs(_ctx, _ctx.BlockHeight()-1)
-
-	// am.keeper.Logger().Error("BeginBlock GetCumulativeTrxs", "BlockHeight", _ctx.BlockHeight(), "cumilativeTrxs", cumilativeTrxs.TrxCount)
-
-	// if _ctx.BlockHeader().Height%10 == 0 {
-	// 	var coins sdk.Coins
-	// 	coins = coins.Add(sdk.NewInt64Coin("egv", 1000000))
-	// 	// address chikku1elhhygflnegft0dfz626q5pdwdgjxqdshqlmkg
-	// 	accAddress, err := sdk.AccAddressFromBech32("chikku1elhhygflnegft0dfz626q5pdwdgjxqdshqlmkg")
-	// 	if err != nil {
-	// 		// Handle error (e.g., invalid address format)
-	// 		panic(err)
-	// 	}
-	// 	if err := am.keeper.MintCoins(ctx.(sdk.Context), accAddress, coins); err != nil {
-	// 		return err
-	// 	}
-	// }
 	return nil
 }
 

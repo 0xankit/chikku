@@ -23,12 +23,15 @@ Warning: This is a development version of the blockchain. Do not use in producti
 
 ## Architecture
 
+<p align="center" style="text-align: center; background-color: #f0f0f0;">
+  <img src="public/diag.png" alt="Chikku" />
+</p>
+
 1. x/egvmod: EGV Token and Dynamic Rewards
 
     - Predefined addresses that receive EGV tokens:
 
-      - [X] Register the predefined addresses (10 operators with some egv tokens) from the genesis file.
-      - [ ] or register them at runtime.
+      - [X] Register the predefined addresses (10 operators with some egv tokens) from the config as module params file.
 
     - Params:
 
@@ -52,29 +55,32 @@ Warning: This is a development version of the blockchain. Do not use in producti
         [(operator_address, trxs_count), ...]
         ```
 
-      - lastDistributionBlock: The block height at which the last distribution happened.
+        Also storing for future reference with key as block height.
 
         ```go
         (block_height => [(operator_address, individual_reward), ...])
         ```
 
+      - lastDistributionBlock: The block height at which the last distribution happened.
+
+
     - Expected behavior:
 
-      - [ ] while Gensis intialization, register the predefined operators with some egv tokens. (10 operators)
+      - [x] while Gensis intialization, register the predefined operators with some egv tokens. (10 operators)
 
-        - [ ] Initialize the `OperatorTrxsCount` for each operator to 0.
-        - [ ] Initialize the `distrubutionInterval` to 100 blocks.
-        - [ ] Initialize the `inflationRate` to 0.1 (default 10%).
-        - [ ] add export genesis to the module.
+        - [x] Initialize the `OperatorTrxsCount` for each operator to 0.
+        - [ ] Initialize the `distrubutionInterval` to 100 blocks through module params. so that it can be changed through governance.
+        - [x] Initialize the `inflationRate` to 0.1 (default 10%) through module params. so that it can be changed through governance.
+        - [x] add export genesis to the module.
 
-      - [ ] Increment the `OperatorTrxsCount` for each operator after each transaction. Reset the count after each distribution.
+      - [x] Increment the `OperatorTrxsCount` for each operator after each transaction. Reset the count after each distribution. Currently it is using store to track the `OperatorTrxsCount` but can be updated to use memStore.
 
-        - [ ] Can use AnteHandler to update the `OperatorTrxsCount` after each transaction.
-        - [ ] Can use MsgTypeURL to check the type of transaction and update the `OperatorTrxsCount` accordingly from `EndBlocker`.
+        - [x] use AnteHandler to update the `OperatorTrxsCount` after each transaction.
+        - [ ] Can use MsgTypeURL to check the type of transaction and update the `OperatorTrxsCount`.
 
-      - [ ] Calculate & Mint new tokens and distribute them to the operators.
+      - [x] Calculate & Mint new tokens and distribute them to the operators.
 
-        - [ ] Distribute the rewards to the operators at `distributionInterval` blocks, at `EndBlocker`.
+        - [x] Distribute the rewards to the operators at `distributionInterval` blocks, at `EndBlocker`.
 
           ```go
           if current_height% distributionInterval == 0:
@@ -84,9 +90,10 @@ Warning: This is a development version of the blockchain. Do not use in producti
                   mint_tokens(operator, individual_reward)
           ```
 
-    - [ ] Permissions:
+    - [x] Permissions:
       - x/bank
       - x/mint
+      - x/auth
 
 2. x/egov: Transaction-Weighted Governance
     - [ ] Permissions:
@@ -112,38 +119,6 @@ Warning: This is a development version of the blockchain. Do not use in producti
 1. inflation_rate = 0.1 (default 10%) and is for a given `distributionInterval`.
 2. total_network_transactions = total number of transactions in the network since genesis.
 
-### Development
-
-1. Create a new module `egvmod` with dependencies `bank` and `mint`.
-
-  ```sh
-  ignite scaffold module egvmod --dep=bank,mint
-  ```
-
-Now add params and structs to the module.
-
-```
-// Mint coins & send to an address.
-func (k Keeper) MintCoins(ctx sdk.Context, moduleAcct sdk.AccAddress, toAddr sdk.AccAddress, amt sdk.Coins) error {
- if err := k.mintKeeper.MintCoins(ctx, amt); err != nil {
-  return err
- }
-
- if err := k.bankKeeper.SendCoins(ctx, moduleAcct, toAddr, amt); err != nil {
-  return err
- }
-
- return nil
-}
-
- moduleAcct := am.accountKeeper.GetModuleAddress(types.ModuleName)
- var coins sdk.Coins
- coins = coins.Add(sdk.NewInt64Coin("stake", 1000000))
- if err := am.keeper.MintCoins(ctx.(sdk.Context), moduleAcct, moduleAcct, coins); err != nil {
-  return err
- }
-```
-
-
 ### Refrences
 1. [Optimistic Execution](https://docs.cosmos.network/main/build/rfc/rfc-005-optimistic-execution)
+2. [Cosmos-sdk](https://docs.cosmos.network/)
