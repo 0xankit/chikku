@@ -1,5 +1,10 @@
 <h1 align="center">Chikku</h1>
 
+<!-- add release bandage -->
+[![Github All Releases](https://github.com/0xankit/chikku/actions/workflows/release.yml/badge.svg)]()
+[![Github All Releases](https://github.com/0xankit/chikku/actions/workflows/tests.yml/badge.svg)]()
+[![Github All Releases](https://img.shields.io/github/downloads/0xankit/chikku/actions/total.svg)]()
+
 <!-- show image in middle -->
 <p align="center" style="text-align: center; background-color: #f0f0f0;">
   <img src="public/chikku.png" alt="Chikku" width="200"/>
