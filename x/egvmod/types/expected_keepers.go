@@ -25,6 +25,7 @@ type BankKeeper interface {
 	// Methods imported from bank should be defined here
 	MintCoins(ctx context.Context, moduleName string, amt sdk.Coins) error
 	SendCoinsFromModuleToAccount(ctx context.Context, senderModule string, recipientAddr sdk.AccAddress, amt sdk.Coins) error
+	GetSupply(ctx context.Context, denom string) sdk.Coin
 }
 
 // ParamSubspace defines the expected Subspace interface for parameters.

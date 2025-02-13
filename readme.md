@@ -143,3 +143,7 @@ func (k Keeper) MintCoins(ctx sdk.Context, moduleAcct sdk.AccAddress, toAddr sdk
   return err
  }
 ```
+
+
+### Refrences
+1. [Optimistic Execution](https://docs.cosmos.network/main/build/rfc/rfc-005-optimistic-execution)

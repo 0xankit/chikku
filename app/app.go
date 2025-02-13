@@ -258,6 +258,9 @@ func New(
 	// build app
 	app.App = appBuilder.Build(db, traceStore, baseAppOptions...)
 
+	// set AnteHandler
+	app.SetAnteHandler(NewAnteHandler(app.BaseApp.AnteHandler(), &app.EgvmodKeeper))
+
 	// register legacy modules
 	if err := app.registerIBCModules(appOpts); err != nil {
 		return nil, err
@@ -417,4 +420,9 @@ func BlockedAddresses() map[string]bool {
 		}
 	}
 	return result
+}
+
+// Get EgvmodKeeper returns the Egvmod module keeper.
+func (app *App) GetEgvmodKeeper() egvmodmodulekeeper.Keeper {
+	return app.EgvmodKeeper
 }

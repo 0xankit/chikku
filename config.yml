@@ -60,7 +60,7 @@ genesis:
     egvmod:
       params:
         inflation_rate: "0.15"
-        reward_distribution_interval: 100
+        reward_distribution_interval: 10
         operators:
           [
             "chikku1ss6pjm244hy8nzk6zusypc5m9huneps40qvyvv",

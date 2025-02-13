@@ -1,0 +1,25 @@
+syntax = "proto3";
+package chikku.egvmod;
+
+import "gogoproto/gogo.proto";
+
+option go_package = "chikku/x/egvmod/types";
+
+// OperatorTrxCounter defines the operator transaction counter.
+message OperatorTrxCounter {
+    // Operator is the operator address.
+    string operator = 1 [(gogoproto.customname) = "Operator"];
+
+    // TrxCount is the transaction count.
+    int64 trx_count = 2 [(gogoproto.customname) = "TrxCount"];
+}
+
+// OperatosTrxsCount defines the operators transaction count.
+message OperatorsTrxsCount {
+    int64 block_height = 1 [(gogoproto.customname) = "BlockHeight"];
+    // OperatorTrxCount is the operator transaction count.
+    repeated OperatorTrxCounter operator_trx_counters = 2 [(gogoproto.customname) = "OperatorTrxCounters"];
+
+    // TrxCount is the transaction count.
+    int64 trx_count = 3 [(gogoproto.customname) = "TrxCount"];
+}
