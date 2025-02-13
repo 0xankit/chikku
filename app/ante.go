@@ -12,7 +12,6 @@ import (
 // NewAnteHandler creates a new AnteHandler
 func NewAnteHandler(anteHandler sdk.AnteHandler, keeper *keeper.Keeper) (ah sdk.AnteHandler) {
 	return func(ctx sdk.Context, tx sdk.Tx, simulate bool) (sdk.Context, error) {
-		ctx.Logger().Error("NewAnteHandler called")
 		// Run the default BaseApp AnteHandler
 		ah, err := anteHandler(ctx, tx, simulate)
 		if err != nil {
@@ -25,24 +24,18 @@ func NewAnteHandler(anteHandler sdk.AnteHandler, keeper *keeper.Keeper) (ah sdk.
 			signers, _ := sigTx.GetSigners()
 
 			for _, signer := range signers {
-				ctx.Logger().Error("Signers", "sig", signer)
 				// convert to sdk.AccAddress
 				accAddr := sdk.AccAddress(signer)
-				ctx.Logger().Error("Signers", "accAddr", accAddr)
 
 				params := keeper.GetParams(ctx)
 				operatos := params.GetOperators()
-				ctx.Logger().Error("Signers", "operatos", operatos)
 				for _, operator := range operatos {
 					if operator == (accAddr.String()) {
-						ctx.Logger().Error("####################### Signers", "operator", operator)
 						keeper.IncrementOperatorTrxCount(ctx, operator)
-						// os.Exit(1)
 						operatorTrxCount := keeper.GetOperatorTrxCount(ctx, ctx.BlockHeight())
-						ctx.Logger().Error("Signers", "operatorTrxCount", operatorTrxCount)
+						ctx.Logger().Info("Signers", "operatorTrxCount", operatorTrxCount)
 						break
 					}
-					ctx.Logger().Error("Signers", "operator", operator, "accAddr", accAddr)
 				}
 			}
 		}

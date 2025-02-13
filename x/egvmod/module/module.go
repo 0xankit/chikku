@@ -156,7 +156,7 @@ func (am AppModule) EndBlock(ctx context.Context) error {
 	// Run TrxCounter for each block,
 	_ctx := sdk.UnwrapSDKContext(ctx)
 	operatorTrxsCount := am.keeper.GetOperatorTrxCount(_ctx, _ctx.BlockHeight())
-	am.keeper.Logger().Error("EndBlock GetOperatorTrxCount", "BlockHeight", _ctx.BlockHeight(), "operatorTrxCount", operatorTrxsCount)
+	am.keeper.Logger().Info("EndBlock GetOperatorTrxCount", "BlockHeight", _ctx.BlockHeight(), "operatorTrxCount", operatorTrxsCount)
 	am.keeper.SetTrxCount(_ctx, operatorTrxsCount)
 
 	// Mint coins to the operators address every 100 blocks
